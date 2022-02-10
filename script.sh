@@ -7,11 +7,23 @@ help(){
 
 
 done_(){
+    this=`pwd`
+    if [[ $fraz != "" ]]
+    then
+        cd $fraz
+    fi
     sed -i "s/^|[[:space:]]*$1[[:space:]]*|[[:space:]]*|/|$1|:heavy_check_mark:|/" ./readme.md
+    cd $this
 }
 
 nDone_(){
+    this=`pwd`
+    if [[ $fraz != "" ]]
+    then
+        cd $fraz
+    fi
     sed -i "s/^|[[:space:]]*$1[[:space:]]*|[[:space:]]*:heavy_check_mark:[[:space:]]*|/|$1||/" ./readme.md
+    cd $this
 }
 
 create(){
