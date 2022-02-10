@@ -18,7 +18,6 @@ create(){
     this=`pwd`
     if [[ $fraz != "" ]]
     then
-        echo here
         cd $fraz
     fi
     mkdir $1
