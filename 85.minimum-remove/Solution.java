@@ -3,32 +3,35 @@ import java.util.regex.Pattern;
 
 class Solution {
     public static void main(String[] args) {
-        System.out.println(new Solution().minRemoveToMakeValid("l(((ee(t(c)o)de)"));
+        System.out.println(new Solution().minRemoveToMakeValid(
+            "))(("
+            ));
     }
 
     public String minRemoveToMakeValid(String s) {
-        StringBuffer st = new StringBuffer(s);
-        Stack<Character> stack = new Stack<>();
+        StringBuffer st = new StringBuffer();
+        int openBracesCount = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(' || s.charAt(i) == ')') {
                 if (s.charAt(i) == '(') {
-                    stack.push('(');
-                } else if (!stack.empty() && stack.peek() == '(') {
-                    stack.pop();
+                    openBracesCount++;
                 } else {
-                    st.replace(i, i + 1, "A");
+                    if(openBracesCount==0)continue;
+                    openBracesCount--;
                 }
             }
+            st.append(s.charAt(i));
+
         }
-        int i = 0;
-        while (!stack.empty()) {
-            while (s.charAt(i) != '(') {
-                i++;
+        s=st.toString();
+        int i=s.length()-1;
+        while (openBracesCount>0) {
+            if(s.charAt(i)=='('){
+                st.delete(i, i+1);
+                openBracesCount--;
             }
-            st.replace(i, i + 1, "A");
-            stack.pop();
-            i++;
+            i--;
         }
-        return st.toString().replaceAll("A", "");
+        return st.toString();
     }
 }
